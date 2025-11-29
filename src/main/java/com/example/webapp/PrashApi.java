@@ -11,7 +11,7 @@ public class PrashApi {
     @GetMapping("/name")
     public String getName()
     {
-        return "Prashanth";
+        return "Prashanth S M";
     }
 
 }
