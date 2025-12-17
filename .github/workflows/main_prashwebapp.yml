@@ -27,20 +27,11 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Create deployment package
-        run: |
-          cd target
-          mkdir deploy
-          cp *.jar deploy/app.jar
-          cp ../src/main/resources/web.config deploy/ 2>/dev/null || true
-          cd deploy
-          zip -r ../app.zip .
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/app.zip'
+          path: '${{ github.workspace }}/target/*.war'
 
   deploy:
     runs-on: ubuntu-latest
@@ -68,7 +59,7 @@ jobs:
         with:
           app-name: 'prashwebapp'
           slot-name: 'Production'
-          package: 'app.zip'
+          package: '*.war'
           
 
 
